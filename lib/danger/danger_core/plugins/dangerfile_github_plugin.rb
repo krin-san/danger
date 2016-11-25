@@ -196,8 +196,10 @@ module Danger
       repo = pr_json["head"]["repo"]["html_url"]
 
       paths = paths.map do |path|
+        path, line = path.split("#")
         url_path = path.start_with?("/") ? path : "/#{path}"
         text = full_path ? path : File.basename(path)
+        line_ref = line ? "#L#{line}" : ""
         create_link("#{repo}/blob/#{commit}#{url_path}", text)
       end
 
